@@ -17,16 +17,15 @@ import java.util.HashMap;
 public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, BigDecimal> requestBody;
+        HashMap<String, String> requestBody;
 
         try {
             requestBody = RequestParser.parseRequest(req);
             if (requestBody.isEmpty()) {
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
-                dispatcher.forward(req, resp);
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
                 return;
             }
-            if (!Validator.validateData(requestBody)) {
+            if (!Validator.validateData(requestBody) && requestBody.get("type").equals("btn")) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
                 return;
             }

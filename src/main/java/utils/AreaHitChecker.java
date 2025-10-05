@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 public class AreaHitChecker {
 
-    public static boolean checkHit(HashMap<String, BigDecimal> values) {
-        BigDecimal x = values.get("x");
-        BigDecimal y = values.get("y");
-        BigDecimal r = values.get("r");
+    public static boolean checkHit(HashMap<String, String> values) {
+        BigDecimal x = new BigDecimal(values.get("x"));
+        BigDecimal y = new BigDecimal(values.get("y"));
+        BigDecimal r = new BigDecimal(values.get("r"));
         BigDecimal zero = BigDecimal.ZERO;
 
         if (x.compareTo(zero) >= 0 && y.compareTo(zero) >= 0) {

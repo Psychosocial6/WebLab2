@@ -3,10 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const check_button = document.getElementById("button");
     const clear_button = document.getElementById("clear");
     const text_field = document.getElementById("Ytext");
-
     const image = document.getElementById('image');
     const container = document.querySelector('.x-button-container');
     const buttons = document.querySelectorAll('button');
+    const rb1 = document.getElementById("R1");
+    const rb2 = document.getElementById("R2");
+    const rb3 = document.getElementById("R3");
+    const rb4 = document.getElementById("R4");
+    const rb5 = document.getElementById("R5");
+
     let x_value = 0;
 
     text_field.addEventListener("input", () => {
@@ -38,12 +43,45 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const table_body = document.getElementById('table-body');
-            table_body.innerHTML = '';
             return response;
         })
         .catch(error => {
             console.error('Ошибка при очистке данных:', error);
+        });
+    }
+
+    function updateGraph(value) {
+        value = parseFloat(value);
+        let xCaption1 = document.getElementById("XR");
+        let xCaption2 = document.getElementById("XR/2");
+        let xCaption3 = document.getElementById("X-R/2");
+        let xCaption4 = document.getElementById("X-R");
+
+        let yCaption1 = document.getElementById("YR");
+        let yCaption2 = document.getElementById("YR/2");
+        let yCaption3 = document.getElementById("Y-R/2");
+        let yCaption4 = document.getElementById("Y-R");
+
+        xCaption1.textContent = value;
+        xCaption2.textContent = value / 2;
+        xCaption3.textContent = -1 * value / 2;
+        xCaption4.textContent = -1 * value;
+
+        yCaption1.textContent = value;
+        yCaption2.textContent = value / 2;
+        yCaption3.textContent = -1 * value / 2;
+        yCaption4.textContent = -1 * value;
+
+        document.querySelectorAll("circle.point").forEach(point => {
+            console.log("x:", point.dataset.x, "y:", point.dataset.y);
+            let x = parseFloat(point.dataset.x);
+            let y = parseFloat(point.dataset.y);
+
+            let cx = 200 + (x / value) * 150;
+            let cy = 200 - (y / value) * 150;
+
+            point.setAttribute("cx", cx);
+            point.setAttribute("cy", cy);
         });
     }
 
@@ -115,19 +153,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return response.text();
             })
-            .then(newTableHtml => {
-                const currentTableBlock = document.querySelector('.table-block');
-                if (currentTableBlock) {
-                    currentTableBlock.outerHTML = newTableHtml;
-                } else {
-                    console.error('table error');
-                }
-                return newTableHtml;
+            .then(newPageHtml => {
+                document.open();
+                document.write(newPageHtml);
+                document.close();
             })
             .catch(error => {
                 console.error('Произошла ошибка:', error);
                 throw error;
             });
+    }
+
+    function radio_click(event) {
+        const clicked = event.target;
+        const value = clicked.value;
+        updateGraph(parseFloat(value));
     }
 
     function image_click(event) {
@@ -162,9 +202,10 @@ document.addEventListener("DOMContentLoaded", () => {
         svg.appendChild(point);
 
         const requestData = {
-            x: Math.round(mathX),
+            x: mathX,
             y: mathY,
-            r: r_value
+            r: r_value,
+            type: "svg"
         };
         const params = new URLSearchParams(requestData);
         const fullUrl = `${apiUrl}?${params.toString()}`;
@@ -177,25 +218,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return response.text();
             })
-            .then(newTableHtml => {
-                const currentTableBlock = document.querySelector('.table-block');
-                if (currentTableBlock) {
-                    currentTableBlock.outerHTML = newTableHtml;
-                } else {
-                    console.error('table error');
-                }
+            .then(newPageHtml => {
+                document.open();
+                document.write(newPageHtml);
+                document.close();
             })
             .catch(error => {
                 console.error('Error: ', error);
             });
     }
 
-    async function button_click() {
+    function button_click() {
         let y_value = text_field.value;
         const r_radio = document.querySelector('input[name="R"]:checked');
         let r_value = r_radio.value;
 
-        const data = { x: x_value, y: y_value, r: r_value };
+        const data = { x: x_value, y: y_value, r: r_value, type: "btn" };
 
         sendRequest(apiUrl, data)
             .then(result => {
@@ -214,7 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    updateGraph(1);
+
     clear_button.addEventListener("click", clear_click);
     check_button.addEventListener("click", button_click);
     image.addEventListener("click", image_click);
+    rb1.addEventListener("click", radio_click);
+    rb2.addEventListener("click", radio_click);
+    rb3.addEventListener("click", radio_click);
+    rb4.addEventListener("click", radio_click);
+    rb5.addEventListener("click", radio_click);
 });

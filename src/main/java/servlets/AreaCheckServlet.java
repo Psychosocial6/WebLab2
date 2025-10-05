@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, BigDecimal> requestBody = (HashMap<String, BigDecimal>) req.getAttribute("requestBody");
+        HashMap<String, String> requestBody = (HashMap<String, String>) req.getAttribute("requestBody");
 
         boolean shotResult = AreaHitChecker.checkHit(requestBody);
 
@@ -32,9 +32,9 @@ public class AreaCheckServlet extends HttpServlet {
         long startTime = Long.parseLong(req.getAttribute("startTime").toString());
         double requestTime = Math.round(((double) (endTime - startTime) / 1e6) * 1e6) / 1e6;
 
-        Result result = new Result(requestBody.get("x"),
-                requestBody.get("y"),
-                requestBody.get("r"),
+        Result result = new Result(new BigDecimal(requestBody.get("x")),
+                new BigDecimal(requestBody.get("y")),
+                new BigDecimal(requestBody.get("r")),
                 shotResult,
                 requestTime,
                 stringTime);

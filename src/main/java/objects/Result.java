@@ -3,31 +3,35 @@ package objects;
 import java.math.BigDecimal;
 
 public class Result {
-    private BigDecimal x;
-    private BigDecimal y;
-    private BigDecimal r;
+    private double x;
+    private double y;
+    private double r;
     private boolean result;
     private double requestTime;
     private String localTime;
+    private double cx;
+    private double cy;
 
     public Result(BigDecimal x, BigDecimal y, BigDecimal r, boolean result, double requestTime, String localTime) {
-        this.x = x;
-        this.y = y;
-        this.r = r;
+        this.x = x.doubleValue();
+        this.y = y.doubleValue();
+        this.r = r.doubleValue();
         this.result = result;
         this.requestTime = requestTime;
         this.localTime = localTime;
+        cx = 200 + this.x / this.r * 150;
+        cy = 200 - this.y / this.r * 150;
     }
 
-    public BigDecimal getX() {
+    public double getX() {
         return x;
     }
 
-    public BigDecimal getY() {
+    public double getY() {
         return y;
     }
 
-    public BigDecimal getR() {
+    public double getR() {
         return r;
     }
 
@@ -41,5 +45,13 @@ public class Result {
 
     public String getLocalTime() {
         return localTime;
+    }
+
+    public double getCx() {
+        return cx;
+    }
+
+    public double getCy() {
+        return cy;
     }
 }

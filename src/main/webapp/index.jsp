@@ -108,18 +108,6 @@
                     <line x1="205" x2="195" y1="50" y2="50" stroke="#334155"/>
                     <line x1="205" x2="195" y1="125" y2="125" stroke="#334155"/>
 
-                    <!--подписи X-->
-                    <text x="350" y="190" stroke="#334155">R</text>
-                    <text x="275" y="190" stroke="#334155">R/2</text>
-                    <text x="50" y="190" stroke="#334155">-R</text>
-                    <text x="125" y="190" stroke="#334155">-R/2</text>
-
-                    <!--подписи Y-->
-                    <text x="210" y="350" stroke="#334155">-R</text>
-                    <text x="210" y="275" stroke="#334155">-R/2</text>
-                    <text x="210" y="50" stroke="#334155">R</text>
-                    <text x="210" y="125" stroke="#334155">R/2</text>
-
                     <!--подписи осей-->
                     <text x="380" y="215" stroke="#334155">X</text>
                     <text x="185" y="20" stroke="#334155">Y</text>
@@ -128,52 +116,26 @@
                     <rect height="75" width="150" X="50" y="200" fill-opacity="0.5" stroke="#3b82f6" fill="#3b82f6"/>
                     <polygon points="125,200 200,200 200,125" fill-opacity="0.5" stroke="#3b82f6" fill="#3b82f6"/>
                     <path d="M 200 200 L 275 200 A 75 75 0 0 0 200 125 Z" fill="#3b82f6" stroke="#3b82f6" fill-opacity="0.5"/>
+
+                    <!--подписи X-->
+                    <text x="350" y="190" stroke="#334155" id="XR">R</text>
+                    <text x="275" y="190" stroke="#334155" id="XR/2">R/2</text>
+                    <text x="50" y="190" stroke="#334155" id="X-R">-R</text>
+                    <text x="125" y="190" stroke="#334155" id="X-R/2">-R/2</text>
+
+                    <!--подписи Y-->
+                    <text x="210" y="350" stroke="#334155" id="Y-R">-R</text>
+                    <text x="210" y="275" stroke="#334155" id="Y-R/2">-R/2</text>
+                    <text x="210" y="50" stroke="#334155" id="YR">R</text>
+                    <text x="210" y="125" stroke="#334155" id="YR/2">R/2</text>
+
+                    <c:if test="${not empty applicationScope.results}">
+                        <c:forEach var="res" items="${applicationScope.results}">
+                            <circle class="point" data-x="${res.x}" data-y="${res.y}" cx="${res.cx}" cy="${res.cy}" r="2" fill="${res.result ? 'green' : 'red'}"/>
+                        </c:forEach>
+                    </c:if>
                 </svg>
             </div>
-        </div>
-
-        <div class="table-block">
-            <!--таблица с результатами-->
-            <table>
-                <thead>
-                <tr>
-                    <td>№</td>
-                    <td>X</td>
-                    <td>Y</td>
-                    <td>R</td>
-                    <td>Результат попадания</td>
-                    <td>Время обработки запроса, мс</td>
-                    <td>Текущее время</td>
-                </tr>
-                </thead>
-
-                <tbody id="table-body">
-                <c:if test="${not empty applicationScope.results}">
-                    <c:forEach var="res" items="${applicationScope.results}" varStatus="loop">
-                        <tr class="data-row">
-                            <td class="n">${loop.count}</td>
-                            <td class="x">${res.x}</td>
-                            <td class="y">${res.y}</td>
-                            <td class="r">${res.r}</td>
-                            <td class="result">${res.result ? 'Попадание' : 'Промах'}</td>
-                            <td class="request-time">${res.requestTime}</td>
-                            <td class="local-time">${res.localTime}</td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${empty applicationScope.results}">
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </c:if>
-                </tbody>
-            </table>
         </div>
     </div>
 </main>

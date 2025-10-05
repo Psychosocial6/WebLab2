@@ -9,13 +9,14 @@ import java.util.HashMap;
 
 public class RequestParser {
 
-    public static HashMap<String, BigDecimal> parseRequest(HttpServletRequest request) throws RequestParsingException, IOException {
-        HashMap<String, BigDecimal> requestBody = new HashMap<>();
+    public static HashMap<String, String> parseRequest(HttpServletRequest request) throws RequestParsingException, IOException {
+        HashMap<String, String> requestBody = new HashMap<>();
 
         try {
-            requestBody.put("x", new BigDecimal(request.getParameter("x")));
-            requestBody.put("y", new BigDecimal(request.getParameter("y")));
-            requestBody.put("r", new BigDecimal(request.getParameter("r")));
+            requestBody.put("x", request.getParameter("x"));
+            requestBody.put("y", request.getParameter("y"));
+            requestBody.put("r", request.getParameter("r"));
+            requestBody.put("type", request.getParameter("type"));
         }
         catch (Exception e) {
             throw new RequestParsingException("Error parsing request body");
