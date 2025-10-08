@@ -55,7 +55,7 @@ div > .block {
     border: 1px solid #e2e8f0;
 }
 
-.top-row > .block:first-child {
+.top-row > .block:first-child > form {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -115,14 +115,14 @@ button:disabled {
     word-break: break-all;
 }
 
-.block > fieldset > div > div > button {
+.block > form > fieldset > div > div > button {
     height: 25px;
     width: 25px;
     margin: 5px;
     border: 1px solid;
 }
 
-.block > fieldset > div > div > button.active-button {
+.block > form > fieldset > div > div > button.active-button {
     background-color: #2f4f97;
     border-color: #00418f;
 }

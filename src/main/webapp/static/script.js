@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rb3 = document.getElementById("R3");
     const rb4 = document.getElementById("R4");
     const rb5 = document.getElementById("R5");
+    const form = document.getElementById("button-form")
 
     let x_value = 0;
 
@@ -141,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /*
     function sendRequest(url, requestData) {
         const params = new URLSearchParams(requestData);
         const fullUrl = `${url}?${params.toString()}`;
@@ -163,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw error;
             });
     }
+     */
 
     function radio_click(event) {
         const clicked = event.target;
@@ -215,6 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    /*
     function button_click() {
         let y_value = text_field.value;
         const r_radio = document.querySelector('input[name="R"]:checked');
@@ -230,6 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Произошла ошибка:", error);
             });
     }
+     */
 
     function clear_click() {
         let clear = confirm("Вы уверены, что хотите отчистить таблицу?")
@@ -240,10 +245,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        let y_value = text_field.value;
+        const r_radio = document.querySelector('input[name="R"]:checked');
+        let r_value = r_radio.value;
+
+        const data = { x: x_value, y: y_value, r: r_value, type: "btn" };
+
+        const params = new URLSearchParams(data);
+        const finalURL = `${apiUrl}?${params.toString()}`;
+        window.location.href = finalURL;
+    });
+
     updateGraph(1);
 
     clear_button.addEventListener("click", clear_click);
-    check_button.addEventListener("click", button_click);
+    //check_button.addEventListener("click", button_click);
     image.addEventListener("click", image_click);
     rb1.addEventListener("click", radio_click);
     rb2.addEventListener("click", radio_click);

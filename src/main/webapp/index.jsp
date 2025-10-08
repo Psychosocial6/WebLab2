@@ -23,67 +23,67 @@
         <div class="top-row">
             <!--параметры точки и графика-->
             <div class="block">
-                <!--X-->
-                <fieldset>
-                    <legend>Изменение X</legend>
-                    <div class="x-button-container">
+                <form id="button-form" action="" method="GET">
+                    <!--X-->
+                    <fieldset>
+                        <legend>Изменение X</legend>
+                        <div class="x-button-container">
+                            <div>
+                                <button name="x-3" id="x-3" type="button">-3</button>
+                                <button name="x-2" id="x-2" type="button">-2</button>
+                                <button name="x-1" id="x-1" type="button">-1</button>
+                            </div>
+                            <div>
+                                <button name="x0" id="x0" class="active-button" type="button">0</button>
+                                <button name="x1" id="x1" type="button">1</button>
+                                <button name="x2" id="x2" type="button">2</button>
+                            </div>
+                            <div>
+                                <button name="x3" id="x3" type="button">3</button>
+                                <button name="x4" id="x4" type="button">4</button>
+                                <button name="x5" id="x5" type="button">5</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <!--Y-->
+                    <fieldset>
+                        <legend>Изменение Y</legend>
+                        <input type="text" id="Ytext" name="Ytext" placeholder="Значение Y (от -5 до 3)"/>
+                    </fieldset>
+
+                    <!--R-->
+                    <fieldset>
+                        <legend>Изменение R</legend>
                         <div>
-                            <button name="x-3" id="x-3">-3</button>
-                            <button name="x-2" id="x-2">-2</button>
-                            <button name="x-1" id="x-1">-1</button>
+                            <input type="radio" id="R1" name="R" value="1" checked="checked">
+                            <label for="R1">1</label>
                         </div>
                         <div>
-                            <button name="x0" id="x0" class="active-button">0</button>
-                            <button name="x1" id="x1">1</button>
-                            <button name="x2" id="x2">2</button>
+                            <input type="radio" id="R2" name="R" value="2">
+                            <label for="R2">2</label>
                         </div>
                         <div>
-                            <button name="x3" id="x3">3</button>
-                            <button name="x4" id="x4">4</button>
-                            <button name="x5" id="x5">5</button>
+                            <input type="radio" id="R3" name="R" value="3">
+                            <label for="R3">3</label>
                         </div>
-                    </div>
+                        <div>
+                            <input type="radio" id="R4" name="R" value="4">
+                            <label for="R4">4</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="R5" name="R" value="5">
+                            <label for="R5">5</label>
+                        </div>
+                    </fieldset>
 
-                </fieldset>
-
-                <!--Y-->
-                <fieldset>
-                    <legend>Изменение Y</legend>
-                    <input type="text" id="Ytext" name="Ytext" placeholder="Значение Y (от -5 до 3)"/>
-                </fieldset>
-
-                <!--R-->
-                <fieldset>
-                    <legend>Изменение R</legend>
-                    <div>
-                        <input type="radio" id="R1" name="R" value="1" checked="checked">
-                        <label for="R1">1</label>
+                    <div class="button-panel">
+                        <button id="button" type="submit" disabled>Проверить</button>
+                        <button name="clear" id="clear" type="button">Очистить таблицу</button>
                     </div>
-                    <div>
-                        <input type="radio" id="R2" name="R" value="2">
-                        <label for="R2">2</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="R3" name="R" value="3">
-                        <label for="R3">3</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="R4" name="R" value="4">
-                        <label for="R4">4</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="R5" name="R" value="5">
-                        <label for="R5">5</label>
-                    </div>
-                </fieldset>
-
-                <div class="button-panel">
-                    <button name="submit" id="button" disabled>Проверить</button>
-                    <button name="clear" id="clear">Очистить таблицу</button>
-                </div>
-
+                </form>
             </div>
-
             <!--график-->
             <div class="block">
                 <svg id="image" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
