@@ -7,21 +7,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import objects.RequestBody;
 import objects.Result;
 import utils.AreaHitChecker;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @WebServlet("/areacheck")
 public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, String> requestBody = (HashMap<String, String>) req.getAttribute("requestBody");
+        RequestBody requestBody = (RequestBody) req.getAttribute("requestBody");
 
         boolean shotResult = AreaHitChecker.checkHit(requestBody);
 
@@ -32,9 +31,9 @@ public class AreaCheckServlet extends HttpServlet {
         long startTime = Long.parseLong(req.getAttribute("startTime").toString());
         double requestTime = Math.round(((double) (endTime - startTime) / 1e6) * 1e6) / 1e6;
 
-        Result result = new Result(new BigDecimal(requestBody.get("x")),
-                new BigDecimal(requestBody.get("y")),
-                new BigDecimal(requestBody.get("r")),
+        Result result = new Result(requestBody.getX(),
+                requestBody.getY(),
+                requestBody.getR(),
                 shotResult,
                 requestTime,
                 stringTime);

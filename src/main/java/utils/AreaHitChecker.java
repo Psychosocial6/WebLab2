@@ -1,14 +1,15 @@
 package utils;
 
+import objects.RequestBody;
+
 import java.math.BigDecimal;
-import java.util.HashMap;
 
 public class AreaHitChecker {
 
-    public static boolean checkHit(HashMap<String, String> values) {
-        BigDecimal x = new BigDecimal(values.get("x"));
-        BigDecimal y = new BigDecimal(values.get("y"));
-        BigDecimal r = new BigDecimal(values.get("r"));
+    public static boolean checkHit(RequestBody values) {
+        BigDecimal x = values.getX();
+        BigDecimal y = values.getY();
+        BigDecimal r = values.getR();
         BigDecimal zero = BigDecimal.ZERO;
 
         if (x.compareTo(zero) >= 0 && y.compareTo(zero) >= 0) {

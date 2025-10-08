@@ -188,19 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const mathX = ((svgX - centerX) / scale) * r_value;
         const mathY = ((-(svgY - centerY)) / scale) * r_value;
 
-        const pt = svg.createSVGPoint();
-        pt.x = event.clientX;
-        pt.y = event.clientY;
-        const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
-
-        const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        point.setAttribute("cx", svgP.x);
-        point.setAttribute("cy", svgP.y);
-        point.setAttribute("r", "4");
-        point.setAttribute("fill", "red");
-        point.setAttribute("class", "click-point");
-        svg.appendChild(point);
-
         const requestData = {
             x: mathX,
             y: mathY,
@@ -249,6 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (clear) {
             clearServerTable();
+            location.reload();
         }
     }
 

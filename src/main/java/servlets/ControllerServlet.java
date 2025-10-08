@@ -6,26 +6,21 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import objects.RequestBody;
 import utils.RequestParser;
 import utils.Validator;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.HashMap;
 
 @WebServlet("/api")
 public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, String> requestBody;
+        RequestBody requestBody;
 
         try {
             requestBody = RequestParser.parseRequest(req);
-            if (requestBody.isEmpty()) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
-                return;
-            }
-            if (!Validator.validateData(requestBody) && requestBody.get("type").equals("btn")) {
+            if (!Validator.validateData(requestBody) && requestBody.getType().equals("btn")) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
                 return;
             }

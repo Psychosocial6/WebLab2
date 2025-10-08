@@ -1,5 +1,7 @@
 package utils;
 
+import objects.RequestBody;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Validator {
     private static final BigDecimal Y_MIN = new BigDecimal("-5");
     private static final BigDecimal Y_MAX = new BigDecimal("3");
 
-    public static boolean validateData(HashMap<String, String> requestBody) {
-        return availableXValues.contains(new BigDecimal(requestBody.get("x"))) && availableRValues.contains(new BigDecimal(requestBody.get("r"))) && new BigDecimal(requestBody.get("y")).compareTo(Y_MIN) >= 0 && new BigDecimal(requestBody.get("y")).compareTo(Y_MAX) <= 0;
+    public static boolean validateData(RequestBody requestBody) {
+        return availableXValues.contains(requestBody.getX()) && availableRValues.contains(requestBody.getR()) && requestBody.getY().compareTo(Y_MIN) >= 0 && requestBody.getY().compareTo(Y_MAX) <= 0;
     }
 }
