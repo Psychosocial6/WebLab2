@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import objects.RequestBody;
 import objects.Result;
 import utils.AreaHitChecker;
+import utils.RequestParser;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestBody requestBody = (RequestBody) req.getAttribute("requestBody");
+        RequestBody requestBody = RequestParser.parseRequest(req);
 
         boolean shotResult = AreaHitChecker.checkHit(requestBody);
 

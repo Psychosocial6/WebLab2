@@ -32,7 +32,6 @@ public class ControllerServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/areacheck");
         req.setAttribute("startTime", System.nanoTime());
-        req.setAttribute("requestBody", requestBody);
         dispatcher.forward(req, resp);
     }
 
