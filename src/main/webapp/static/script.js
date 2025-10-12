@@ -171,6 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const clicked = event.target;
         const value = clicked.value;
         updateGraph(parseFloat(value));
+        saveR(parseFloat(value));
+        updatePointsColor(parseFloat(value));
     }
 
     function image_click(event) {
@@ -218,6 +220,34 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    function updatePointsColor(value) {
+        document.querySelectorAll("circle.point").forEach(point => {
+                    let x = parseFloat(point.dataset.x);
+                    let y = parseFloat(point.dataset.y);
+
+                    let hit = false;
+                    if (x >= 0 && y >= 0) {
+                        hit = x ** 2 + y ** 2 <= (value / 2) ** 2;
+                    }
+                    else if (x <= 0 && y <= 0) {
+                        hit = (y >= -1 * value / 2) && (x >= -1 * value);
+                    }
+                    else if (x <= 0 && y >= 0) {
+                        hit = (y <= 0.5 * x + value / 2) && (x >= -1 * value / 2);
+                    }
+                    else {
+                        hit = false;
+                    }
+                    console.log(hit);
+                    if (hit) {
+                        point.setAttribute("fill", "green");
+                    }
+                    else {
+                        point.setAttribute("fill", "red");
+                    }
+                });
+    }
+
     /*
     function button_click() {
         let y_value = text_field.value;
@@ -258,7 +288,38 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = finalURL;
     });
 
-    updateGraph(1);
+    function saveR(r) {
+        localStorage.setItem('rValue', r.toString());
+    }
+
+    function updateChecked(value) {
+        rb1.checked = "false";
+        rb2.checked = "false";
+        rb3.checked = "false";
+        rb4.checked = "false";
+        rb5.checked = "false";
+
+        if (value == 1) {
+            rb1.checked = "true";
+        }
+        if (value == 2) {
+            rb2.checked = "true";
+        }
+        if (value == 3) {
+            rb3.checked = "true";
+        }
+        if (value == 4) {
+            rb4.checked = "true";
+        }
+        if (value == 5) {
+            rb5.checked = "true";
+        }
+    }
+
+    updateGraph(Number(localStorage.getItem('rValue')) || 1);
+    updateChecked(Number(localStorage.getItem('rValue')) || 1);
+    updatePointsColor(Number(localStorage.getItem('rValue')) || 1);
+
 
     clear_button.addEventListener("click", clear_click);
     //check_button.addEventListener("click", button_click);

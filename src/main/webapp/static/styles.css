@@ -115,14 +115,14 @@ button:disabled {
     word-break: break-all;
 }
 
-.block > form > fieldset > div > div > button {
+.x-button-container > div > button {
     height: 25px;
     width: 25px;
     margin: 5px;
     border: 1px solid;
 }
 
-.block > form > fieldset > div > div > button.active-button {
+.x-button-container > div > button.active-button {
     background-color: #2f4f97;
     border-color: #00418f;
 }

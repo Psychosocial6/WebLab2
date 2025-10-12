@@ -62,7 +62,7 @@
         </table>
     </div>
     <div>
-        <button name="back" id="back-btn">Назад</button>
+        <button type="button" name="back" id="back-btn">Назад</button>
     </div>
 </main>
 </body>
