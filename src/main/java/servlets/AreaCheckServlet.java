@@ -15,7 +15,8 @@ import utils.RequestParser;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @WebServlet("/areacheck")
 public class AreaCheckServlet extends HttpServlet {
@@ -46,11 +47,11 @@ public class AreaCheckServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
-    private synchronized void saveResult(ServletContext servletContext, Result result) {
-        ArrayList<Result> results = (ArrayList<Result>) servletContext.getAttribute("results");
+    private void saveResult(ServletContext servletContext, Result result) {
+        List<Result> results = (List<Result>) servletContext.getAttribute("results");
 
         if (results == null) {
-            results = new ArrayList<>();
+            results = new CopyOnWriteArrayList<>();
         }
 
         results.add(result);

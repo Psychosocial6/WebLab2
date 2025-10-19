@@ -1,6 +1,5 @@
 package servlets;
 
-import exceptions.RequestParsingException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
@@ -16,17 +15,10 @@ import java.io.IOException;
 public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestBody requestBody;
+        RequestBody requestBody = RequestParser.parseRequest(req);
 
-        try {
-            requestBody = RequestParser.parseRequest(req);
-            if (!Validator.validateData(requestBody) && requestBody.getType().equals("btn")) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
-                return;
-            }
-        }
-        catch (RequestParsingException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        if (requestBody == null || !Validator.validateData(requestBody)) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid values");
             return;
         }
 
